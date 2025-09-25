@@ -1,4 +1,4 @@
-
+import potion
 # Character ___ Hero
 #        |___ Enemy
 
@@ -7,21 +7,33 @@
 # USe Items
 # Connect the two files.
 
-class Hero ():
-
-    def __init__(self):
+class Hero:
+    def __init__(self, x, y):
         self.max_health = 100.0
-        #TODO Move health_potion_strength to a different class
-        self.health_potion_strength = 5
-        
+        self.x = x
+        self.y = y
         self.stats = {
             "name" : "hero",
             "strength": 7,
             "health": 100.0,
         }
+        self.inventory = []
 
-        self.inventory = ["sword", "health potion", "rope"]
-    
+    def add_item(self, item):
+        self.inventory.append(item)
+        print(f"{item.name} has been added to your inventory.")
+
+    def use_item(self, item_name):
+        item_name = input(f"What item do you want to use? {self.inventory}\n").lower()
+        print (f"The item you want to use is {item_name}")
+        for item in self.inventory:
+            if item.name.lower() == item_name.lower():
+                item.use(self)
+                self.inventory.remove(item)
+                print(f"{item_name} has been removed from inventory\n")
+                return
+        print(f"You don’t have a {item_name}.")
+
     def print_stats(self):
         print("Your stats are: ")
         for key,value in self.stats.items():
@@ -32,10 +44,28 @@ class Hero ():
         self.print_stats()
 
     def move(self):
-        pass
+        direction = input ("What direction do you want to move? (north/south/west/east)\n").lower()
+
+        if direction == "north":
+            self.y += 1
+
+        elif direction == "south":
+            self.y -+ 1
+
+        elif direction == "east":
+            self.x += 1
+
+        elif direction == "west":
+            self.x -= 1
+
+        else:
+            print("Invalid direction. Please choose north, south, east, or west.")
+
+        print (f"You moved {direction}. Your new position is ({self.x}, {self.y}.)")
 
     def attack(self):
         pass
+
 
     def take_damage(self, damage):
         self.stats["health"] = self.stats["health"] - damage
@@ -59,18 +89,23 @@ class Hero ():
         self.inventory.remove("health potion")
         print(f"Your inventory is now {self.inventory}")
 
-    def use_item(self):
+    #def use_item(self):
         pass
 
 
 #-------------------------------------------------
-hero = Hero() # <--- __init__(self)
-hero.print_stats()
+hero = Hero(0,0) # <--- __init__(self)
 print("\n--------------------------------\n")
-hero.set_name("Omar")
+hero.set_name("Ouro")
 print("\n--------------------------------\n")
+health_potion = potion.Potion("Health Potion", 10, "heal")
+poison_potion = potion.Potion("Poison Potion", 15, "poison")
+hero.add_item(health_potion)
+hero.add_item(poison_potion)
 hero.stats["health"] = 70
-hero.heal("health potion")
+hero.move()
+hero.use_item("Health Potion")
+hero.use_item("Poison Potion")
 print("\n--------------------------------\n")
 
 #print(f"Here are your Hero Stats {player.stats}")

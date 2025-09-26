@@ -16,4 +16,13 @@ class Potion:
             hero.take_damage(self.effect_amount)
             print(f"{hero.stats['name']} was poisoned for {self.effect_amount} damage! Current health: {hero.stats['health']}")
 
-potion = Potion()
+
+test_inventory = []
+first_item = test_inventory[0]
+second_item = test_inventory[1]
+third_item = test_inventory[2]
+last_item = test_inventory[-1]
+
+test_inventory.append("poison potion")
+
+print (test_inventory)

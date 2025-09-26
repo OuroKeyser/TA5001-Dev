@@ -1,4 +1,4 @@
-import potion
+from potion import Potion
 # Character ___ Hero
 #        |___ Enemy
 
@@ -17,21 +17,21 @@ class Hero:
             "strength": 7,
             "health": 100.0,
         }
-        self.inventory = []
+        self.inventory = ["Poison Potion", "Health Potion"]
 
     def add_item(self, item):
         self.inventory.append(item)
         print(f"{item.name} has been added to your inventory.")
 
     def use_item(self, item_name):
-        item_name = input(f"What item do you want to use? {self.inventory}\n").lower()
         print (f"The item you want to use is {item_name}")
         for item in self.inventory:
-            if item.name.lower() == item_name.lower():
+            if item.lower() == item_name.lower():
                 item.use(self)
-                self.inventory.remove(item)
                 print(f"{item_name} has been removed from inventory\n")
+                self.inventory.remove(item)
                 return
+            #print(item.lower())
         print(f"You don’t have a {item_name}.")
 
     def print_stats(self):
@@ -50,7 +50,7 @@ class Hero:
             self.y += 1
 
         elif direction == "south":
-            self.y -+ 1
+            self.y -= 1
 
         elif direction == "east":
             self.x += 1
@@ -98,14 +98,15 @@ hero = Hero(0,0) # <--- __init__(self)
 print("\n--------------------------------\n")
 hero.set_name("Ouro")
 print("\n--------------------------------\n")
-health_potion = potion.Potion("Health Potion", 10, "heal")
-poison_potion = potion.Potion("Poison Potion", 15, "poison")
+health_potion = Potion("Health Potion", 10, "heal")
+poison_potion = Potion("Poison Potion", 15, "poison")
 hero.add_item(health_potion)
 hero.add_item(poison_potion)
+print(f"{hero.inventory}")
 hero.stats["health"] = 70
-hero.move()
-hero.use_item("Health Potion")
-hero.use_item("Poison Potion")
+#hero.move()
+#hero.use_item("Health Potion")
+#hero.use_item("Poison Potion")
 print("\n--------------------------------\n")
 
 #print(f"Here are your Hero Stats {player.stats}")

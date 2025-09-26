@@ -48,9 +48,9 @@ def player_heal(item_name):
           print("You've reached max health")
           hero_stats["health"] = hero_max_health
 
-           print (f"Your health is now {hero_stats['health']}")
-           hero_inventory.remove("health potion")
-           print(f"your inventory is now{hero_inventory}")
+          print (f"Your health is now {hero_stats['health']}")
+          hero_inventory.remove("health potion")
+          print(f"your inventory is now{hero_inventory}")
 
 
 def use_item():

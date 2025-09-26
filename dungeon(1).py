@@ -1,4 +1,4 @@
-import hero_redo
+from hero_redo import Hero
 
 # TODO 
 #    1. Assign hero variables for: 
@@ -39,22 +39,37 @@ def quit ():
     # make sure it doesn't go above max health
 
 # Temporary Function
+def main():
+    isPlaying = True
 
-isPlaying = True
+    hero = Hero(0,0)
 
-while (isPlaying):    
+    while (isPlaying):    
 
-    action = input("\nSelect Action: Attack, Move, Use or Flee\n").lower()
-    print (f"Player Action: {action}")
+        action = input("\nSelect Action: Attack, Move, Use or Flee\n").lower()
+        print (f"Player Action: {action}")
 
-    if (action == "flee"):
-        isPlaying = quit() #<-- isPlaying = False
-    elif (action == "attack"):
-        #player_attack()
-        hero.damage_player() # temporary
-    elif (action == "use"):
-        hero.use_item()
-    elif (action == "move"):
-        hero.move()
-    else:
-        print (f"{action} is an invalid action")
+        print(f"You have: {hero.inventory}")
+
+        if (action == "flee"):
+            isPlaying = quit() #<-- isPlaying = False
+        elif (action == "attack"):
+            #player_attack()
+            hero.damage_player() # temporary
+        elif (action == "use"):
+            item_name = input(f"What item do you want to use? {hero.inventory}\n").lower()
+            hero.use_item(item_name)
+        elif (action == "move"):
+            hero.move()
+        else:
+            print (f"{action} is an invalid action")
+
+
+
+
+
+
+
+
+if __name__ == "__main__":
+    main()
